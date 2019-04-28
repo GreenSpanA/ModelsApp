@@ -20,6 +20,6 @@ namespace ModelsApp.Models
        
         public string Price { get; set; }
         
-        public string File_Name { get; set; }
+        public int File_Id { get; set; }
     }
 }

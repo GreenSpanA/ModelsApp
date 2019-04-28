@@ -23,29 +23,26 @@ namespace ModelsApp.Controllers
             File microsoft = new File { Id = 2, Name = "Microsoft" };
             File google = new File { Id = 3, Name = "Google" };
 
-            files = new List<File> { apple, microsoft, google };
+            files = new List<File> { apple, microsoft, google };           
+        }
 
-            menus = new List<Menu>
-            {
-                new Menu { Id=1, File_Name= "1", Dish="iPhone 6S", Price= "56000" },
-                new Menu { Id=2, File_Name= "1", Dish="iPhone 5S", Price= "41000" },
-                new Menu { Id=3, File_Name= "2", Dish="Lumia 550", Price= "9000" },
-                new Menu { Id=4, File_Name= "2", Dish="Lumia 950", Price= "40000" },
-                new Menu { Id=5, File_Name= "3", Dish="Nexus 5X", Price= "30000" },
-                new Menu { Id=6, File_Name= "3", Dish="Nexus 6P", Price= "50000" }
-
-            };
+        public ActionResult GetMenus()        {
+           
+            var menus = sMenuRepository.FindAll();
+            return Json(new { data = menus });
+            
         }
 
         public IActionResult Index(int? fileID)
         {
-            //var menus = sMenuRepository.FindAll();
+           // var menus = sMenuRepository.FindAll();
 
 
             // формируем список компаний для передачи в представление
             List<FileModel> fileModels = files
                 .Select(c => new FileModel { Id = c.Id, Name = c.Name })
                 .ToList();
+
             // добавляем на первое место
             fileModels.Insert(0, new FileModel { Id = 0, Name = "Все" });
 
@@ -53,7 +50,7 @@ namespace ModelsApp.Controllers
 
             // если передан id компании, фильтруем список
             if (fileID != null && fileID > 0)
-                ivm.Menus = menus.Where(p => p.File_Name == fileID.ToString());
+                ivm.Menus = menus.Where(p => p.File_Id == fileID);
 
             return View(ivm);
         }
