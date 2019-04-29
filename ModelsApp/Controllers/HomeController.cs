@@ -37,10 +37,52 @@ namespace ModelsApp.Controllers
             if (ModelState.IsValid)
             {
                 sMenuRepository.Add(cust);
+                // return RedirectToAction("Index", new { fileID = 2 });
                 return RedirectToAction("Index");
             }
             return View(cust);
 
+        }
+
+        public IActionResult ViewEdit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Menu obj = sMenuRepository.FindByID(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return PartialView("_Edit", obj);
+        }
+
+        [HttpPost]
+        public IActionResult ViewEdit(Menu obj)
+        {
+
+            if (ModelState.IsValid)
+            {
+                sMenuRepository.Update(obj);
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+        }
+
+
+        // GET:/Customer/Delete/1
+        public IActionResult Delete(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            sMenuRepository.Remove(id.Value);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Index(int? fileID)

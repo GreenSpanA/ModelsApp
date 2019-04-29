@@ -1,10 +1,9 @@
 ﻿@model ModelsApp.Models.Menu
 
-
 <div class="modal-body">
-    <h2>Create</h2>
+    <h2>Edit</h2>
 
-    <form asp-action="Create">
+    <form asp-action="ViewEdit">
         <div class="form-horizontal">
             <h4>Customer Information:</h4>
             <hr />
@@ -51,11 +50,9 @@
                     <span asp-validation-for="File_Id" class="text-danger" />
                 </div>
             </div>
-
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
@@ -66,18 +63,8 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-    $(function () {
-        $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');
-        });
-    });
-</script>
-
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
-
