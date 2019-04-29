@@ -9,7 +9,10 @@ namespace ModelsApp.Repository
         void Remove(int id);
         void Update(T item);
         T FindByID(int id);
-        IEnumerable<T> FindAll();      
+        IEnumerable<T> FindAll();
+
+        int FindCurrentFile(T item);
+        int FindCurrentFileByID(int id);
 
     }
 }

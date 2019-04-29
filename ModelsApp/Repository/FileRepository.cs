@@ -30,7 +30,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<File>("SELECT * FROM pdffile WHERE id > 0");
+                return dbConnection.Query<File>("SELECT * FROM file WHERE id > 0");
             }
         }
 
@@ -39,8 +39,19 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<int>("SELECT max(id) FROM public.pdffile");
+                return dbConnection.Query<int>("SELECT max(id) FROM file");
             }
         }
+
+        public void Update(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Query("UPDATE file SET id = @Id WHERE id = @Id", new { Id = id });
+            }
+        }
+
+
     }
 }

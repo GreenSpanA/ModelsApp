@@ -74,7 +74,25 @@ namespace ModelsApp.Repository
                 dbConnection.Query("UPDATE samplemenu SET category = @Category,  dish  = @Dish, description = @Description, " +
                     "veg_comment = @Veg_Comment, price = @Price, file_id = @File_Id WHERE id = @Id", item);
             }
-        }       
+        }  
+        
+        public int FindCurrentFile(Menu item)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<int>("SELECT file_id FROM samplemenu WHERE id = @Id", new { Id = item.Id }).FirstOrDefault();
+            }
+        }
+
+        public int FindCurrentFileByID(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<int>("SELECT file_id FROM samplemenu WHERE id = @Id", new { Id = id }).FirstOrDefault();
+            }
+        }
 
     }
 }

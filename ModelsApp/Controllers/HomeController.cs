@@ -13,6 +13,8 @@ namespace ModelsApp.Controllers
         List<File> files;
         List<Menu> menus;
 
+        int curr_file = 0;
+
         private readonly MenuRepository sMenuRepository;
         private readonly FileRepository sfileRepository;
         
@@ -22,12 +24,12 @@ namespace ModelsApp.Controllers
             sMenuRepository = new MenuRepository(configuration);
             sfileRepository = new FileRepository(configuration);
 
-            File apple = new File { Id = 1, Name = 1 };
-            File microsoft = new File { Id = 2, Name = 2 };
-            File google = new File { Id = 3, Name = 3 };
+            File apple = new File { Id = 1};
+            File microsoft = new File { Id = 2};
+            File google = new File { Id = 3};
 
             files = new List<File> { apple, microsoft, google };
-            
+
             var menus = sMenuRepository.FindAll();            
           
         }
@@ -42,9 +44,8 @@ namespace ModelsApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                sMenuRepository.Add(cust);
-                // return RedirectToAction("Index", new { fileID = 2 });
-                return RedirectToAction("Index");
+                sMenuRepository.Add(cust);                
+                return RedirectToAction("Index", new { fileID = cust.File_Id });
             }
             return View(cust);
 
@@ -68,18 +69,20 @@ namespace ModelsApp.Controllers
         [HttpPost]
         public IActionResult ViewEdit(Menu obj)
         {
-
             if (ModelState.IsValid)
             {
                 sMenuRepository.Update(obj);
-                return RedirectToAction("Index");
+                var file_id = sfileRepository.FindMax();
+
+                curr_file = sMenuRepository.FindCurrentFile(obj);
+                return RedirectToAction("Index", new { fileID = curr_file });             
             }
 
             return View(obj);
-        }
+        }       
 
 
-        // GET:/Customer/Delete/1
+        // GET:/Menu Row/Delete/1
         public IActionResult Delete(int? id)
         {
 
@@ -87,8 +90,11 @@ namespace ModelsApp.Controllers
             {
                 return NotFound();
             }
+            curr_file = sMenuRepository.FindCurrentFileByID(id.Value);
             sMenuRepository.Remove(id.Value);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { fileID = curr_file });
+
+            // return RedirectToAction("Index");
         }
 
         public IActionResult Index(int? fileID )
@@ -96,25 +102,35 @@ namespace ModelsApp.Controllers
             // var menus = sMenuRepository.FindAll();
             var menus = sMenuRepository.FindAll();
 
+            var tmp = sfileRepository.FindAll();
             var file_id = sfileRepository.FindMax();
 
-            fileID = file_id.FirstOrDefault();
+           // fileID = file_id.FirstOrDefault();
             ViewData["file_id"] = file_id.FirstOrDefault();
+            ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
 
             // формируем список компаний для передачи в представление
+            //List<FileModel> fileModels = files
+            //    .Select(c => new FileModel { Id = c.Id, Name = c.Name })
+            //    .ToList();
+
             List<FileModel> fileModels = files
-                .Select(c => new FileModel { Id = c.Id, Name = c.Name})
+                .Select(c => new FileModel { Id = c.Id })
                 .ToList();
 
             // добавляем на первое место
-            fileModels.Insert(0, new FileModel { Id = 0, Name = 0 });
+           //fileModels.Insert(0, new FileModel { Id = 0, Name = 0 });
+
+                     
 
             IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus};
 
             // если передан id компании, фильтруем список
             if (fileID != null && fileID > 0)
+            {
+                curr_file = fileID.Value;
                 ivm.Menus = menus.Where(p => p.File_Id == fileID);
-
+            }
             return View(ivm);
         }
 
