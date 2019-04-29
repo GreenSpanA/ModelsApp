@@ -14,16 +14,22 @@ namespace ModelsApp.Controllers
         List<Menu> menus;
 
         private readonly MenuRepository sMenuRepository;
+        private readonly FileRepository sfileRepository;
+        
 
         public HomeController(IConfiguration configuration)
         {
             sMenuRepository = new MenuRepository(configuration);
+            sfileRepository = new FileRepository(configuration);
 
-            File apple = new File { Id = 1, Name = "Apple" };
-            File microsoft = new File { Id = 2, Name = "Microsoft" };
-            File google = new File { Id = 3, Name = "Google" };
+            File apple = new File { Id = 1, Name = 1 };
+            File microsoft = new File { Id = 2, Name = 2 };
+            File google = new File { Id = 3, Name = 3 };
 
-            files = new List<File> { apple, microsoft, google };           
+            files = new List<File> { apple, microsoft, google };
+            
+            var menus = sMenuRepository.FindAll();            
+          
         }
 
         public IActionResult ViewCreate()
@@ -85,19 +91,23 @@ namespace ModelsApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Index(int? fileID)
+        public IActionResult Index(int? fileID )
         {
             // var menus = sMenuRepository.FindAll();
             var menus = sMenuRepository.FindAll();
 
+            var file_id = sfileRepository.FindMax();
+
+            fileID = file_id.FirstOrDefault();
+            ViewData["file_id"] = file_id.FirstOrDefault();
 
             // формируем список компаний для передачи в представление
             List<FileModel> fileModels = files
-                .Select(c => new FileModel { Id = c.Id, Name = c.Name })
+                .Select(c => new FileModel { Id = c.Id, Name = c.Name})
                 .ToList();
 
             // добавляем на первое место
-            fileModels.Insert(0, new FileModel { Id = 0, Name = "Все" });
+            fileModels.Insert(0, new FileModel { Id = 0, Name = 0 });
 
             IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus};
 

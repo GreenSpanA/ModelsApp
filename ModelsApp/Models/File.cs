@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace ModelsApp.Models
 {
-    public class File
+    public class File : BaseEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }     
+        public int Name { get; set; }     
+        public bool is_Curremt { get; set; }
     }
 }

@@ -23,27 +23,29 @@
 </head>
 
 <body>
+    @*<form class="form-inline">
+            <label>Select restaurant ID:</label>
+            <select name="fileID" class="form-control">
+                @foreach (FileModel file in Model.Files)
+                {
+                    <option value="@file.Id">@file.Name</option>
+                }
+            </select>
+            <input type="submit" />
+
+        </form>*@
+
+    @*ViewData["FirstName"]*@
     <form class="form-inline">
-        <label>Select restaurant ID:</label>
-        <select name="fileID" class="form-control">
-            @foreach (FileModel file in Model.Files)
-            {
-                <option value="@file.Id">@file.Name</option>
-            }
-        </select>
-        <input type="submit" />
+        <div>
+            <label for="name">MENU ID: </label>
+            <input type="text" name="fileID" id="french-hens" value="@ViewData["file_id"]">
+        </div>
+        <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
     </form>
 
-
-    @*<form class="form-inline">
-            <div>
-                <label for="name">MENU ID: </label>
-                <input type="text" name="fileID" id="french-hens" value="1">
-            </div>
-            <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
-        </form>*@
     <br />
-   @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
+    @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
     <br />
     <table class="table">
         <tr>
@@ -72,26 +74,22 @@
         </tr>
         @foreach (Menu p in Model.Menus)
         {
-        <tr>
-            <td>@p.Dish</td>
-            <td>@p.Description</td>
-            <td>@p.Veg_Comment</td>
-            <td>@p.Price</td>
-            <td>@p.Category</td>
-            <td>@p.File_Id</td>
-            <td>
-                @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
-                @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
-                <div class="btn btn-warning">
-                    <a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
-                </div>
-            </td>
-        </tr>
+            <tr>
+                <td>@p.Dish</td>
+                <td>@p.Description</td>
+                <td>@p.Veg_Comment</td>
+                <td>@p.Price</td>
+                <td>@p.Category</td>
+                <td>@p.File_Id</td>
+                <td>
+                    @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
+                    @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
+                    <div class="btn btn-warning">
+                        <a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
+                    </div>
+                </td>
+            </tr>
         }
     </table>
-
-
-
-
 </body> 
 </html>
