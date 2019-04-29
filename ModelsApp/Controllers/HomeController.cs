@@ -26,16 +26,27 @@ namespace ModelsApp.Controllers
             files = new List<File> { apple, microsoft, google };           
         }
 
-        public ActionResult GetMenus()        {
-           
-            var menus = sMenuRepository.FindAll();
-            return Json(new { data = menus });
-            
+        public IActionResult ViewCreate()
+        {
+            return PartialView("_Create");
+        }
+
+        [HttpPost]
+        public IActionResult Create(Menu cust)
+        {
+            if (ModelState.IsValid)
+            {
+                sMenuRepository.Add(cust);
+                return RedirectToAction("Index");
+            }
+            return View(cust);
+
         }
 
         public IActionResult Index(int? fileID)
         {
-           // var menus = sMenuRepository.FindAll();
+            // var menus = sMenuRepository.FindAll();
+            var menus = sMenuRepository.FindAll();
 
 
             // формируем список компаний для передачи в представление
@@ -54,5 +65,7 @@ namespace ModelsApp.Controllers
 
             return View(ivm);
         }
+
+        
     }
 }

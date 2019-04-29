@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ModelsApp</title>
-
+    <title>@ViewData["Title"] - Richard2</title>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -26,27 +25,64 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ModelsApp</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Richard2</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Review</a></li>
+                    <li><a asp-area="" asp-controller="sampleMenu" asp-action="Index">sampleMenu</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <partial name="_CookieConsentPartial" />
-
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - ModelsApp</p>
+            <p>&copy; 2019 - Richard2</p>
         </footer>
     </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+            // Initialize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
+
+    @*START NEW*@
+    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-content" style="width: 600px !important; margin: 30px auto !important;">
+        </div>
+    </div>
+
+
+
+    @*END NEW*@
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -68,7 +104,8 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
+
+
 </body>
 </html>
