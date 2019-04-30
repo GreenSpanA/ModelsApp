@@ -105,8 +105,8 @@ namespace ModelsApp.Controllers
             var tmp = sfileRepository.FindAll();
             var file_id = sfileRepository.FindMax();
 
-           // fileID = file_id.FirstOrDefault();
-            ViewData["file_id"] = file_id.FirstOrDefault();
+            // fileID = file_id.FirstOrDefault();
+           
             ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
 
             // формируем список компаний для передачи в представление
@@ -125,9 +125,11 @@ namespace ModelsApp.Controllers
             IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus};
 
             // если передан id компании, фильтруем список
+            ViewData["file_id"] = 1;
             if (fileID != null && fileID > 0)
             {
                 curr_file = fileID.Value;
+                ViewData["file_id"] = fileID.Value;
                 ivm.Menus = menus.Where(p => p.File_Id == fileID);
             }
             return View(ivm);

@@ -22,6 +22,12 @@
     <link href="~/css/pdfView.css" rel="stylesheet" />
 
     <script src="~/js/incrementing.js"></script>
+    <script src="~/js/openPDF.js"></script>
+    @*<script>
+        function DoSubmit() {
+            document.getElementById('pdf_view').data = "PDF/" + newVal.toString() + ".pdf"   
+        }
+    </script>*@
 
 </head>
 
@@ -39,7 +45,7 @@
         </form>*@
 
     <div class="split left">
-        <object id="pdf_view" data="" type="application/pdf"></object>
+        @Html.Partial("_PDF")
     </div>
 
     <div class="split right">
@@ -53,7 +59,9 @@
                         <div class="inc button">+</div>
 
                     </div>
-                    <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
+                    <div calss="pdfButton">
+                        <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
+                    </div>
                 </form>
             
                 <br />
