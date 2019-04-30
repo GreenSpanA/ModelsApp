@@ -120,7 +120,6 @@ namespace ModelsApp.Controllers
 
             // добавляем на первое место
            //fileModels.Insert(0, new FileModel { Id = 0, Name = 0 });
-
                      
 
             IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus};

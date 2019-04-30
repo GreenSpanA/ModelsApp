@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="~/css/pdfView.css" rel="stylesheet" />
+
+    <script src="~/js/incrementing.js"></script>
 
 </head>
 
@@ -35,62 +38,73 @@
 
         </form>*@
 
-    @*ViewData["FirstName"]*@
-    <form class="form-inline">
-        <div>
-            <label for="name">MENU ID: </label>
-            <input type="text" name="fileID" id="french-hens" value="@ViewData["file_id"]">
-        </div>
-        <input type="submit" value="Submit" id="submitButton"  style="margin-top: 10px; margin-left: -60px;">
-        
-    </form>
+    <div class="split left">
+        <object id="pdf_view" data="" type="application/pdf"></object>
+    </div>
 
-    <br />
-    @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
-    <br />
-    <table class="table">
-        <tr>
-            <th>
-                Dish
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Veg_Comment
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                File_ID
-            </th>
-            <th>
-                Edition column
-            </th>
+    <div class="split right">
+        <div id="demo" style="margin-top: 40px;">
+            
+                <form class="form-inline">
+                    <div>
+                        <label for="name">MENU ID: </label>
+                        <input type="text" name="fileID" id="french-hens" value="@ViewData["file_id"]">
+                        <div class="dec button">-</div>
+                        <div class="inc button">+</div>
 
-        </tr>
-        @foreach (Menu p in Model.Menus)
-        {
-            <tr>
-                <td>@p.Dish</td>
-                <td>@p.Description</td>
-                <td>@p.Veg_Comment</td>
-                <td>@p.Price</td>
-                <td>@p.Category</td>
-                <td>@p.File_Id</td>
-                <td>
-                    @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
-                    @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
-                    <div class="btn btn-warning">
-                        <a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
                     </div>
-                </td>
-            </tr>
-        }
-    </table>
+                    <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
+                </form>
+            
+                <br />
+                @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
+                <br />
+                <table class="table">
+                    <tr>
+                        <th>
+                            Dish
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Veg_Comment
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            File_ID
+                        </th>
+                        <th>
+                            Edition column
+                        </th>
+
+                    </tr>
+                    @foreach (Menu p in Model.Menus)
+                    {
+                        <tr>
+                            <td>@p.Dish</td>
+                            <td>@p.Description</td>
+                            <td>@p.Veg_Comment</td>
+                            <td>@p.Price</td>
+                            <td>@p.Category</td>
+                            <td>@p.File_Id</td>
+                            <td>
+                                @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
+                                @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
+                                <div class="btn btn-warning">
+                                    <a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
 </body> 
+
 </html>
