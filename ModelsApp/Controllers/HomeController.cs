@@ -126,10 +126,12 @@ namespace ModelsApp.Controllers
 
             // если передан id компании, фильтруем список
             ViewData["file_id"] = 1;
+            ViewData["file_name"] = "PDF/2.pdf";
             if (fileID != null && fileID > 0)
             {
                 curr_file = fileID.Value;
                 ViewData["file_id"] = fileID.Value;
+                ViewData["file_name"] = "PDF/" + fileID.Value.ToString() + ".pdf";
                 ivm.Menus = menus.Where(p => p.File_Id == fileID);
             }
             return View(ivm);
