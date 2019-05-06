@@ -20,13 +20,50 @@
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link href="~/css/pdfView.css" rel="stylesheet" />
+    <style>
+        #searchtext span {
+            background-color: #FF9;
+            color: #555;
+        }
+    </style>
 
     <script src="~/js/incrementing.js"></script>
     <script src="~/js/openPDF.js"></script>
     @*<script>
-        function DoSubmit() {
-            document.getElementById('pdf_view').data = "PDF/" + newVal.toString() + ".pdf"   
-        }
+            function DoSubmit() {
+                document.getElementById('pdf_view').data = "PDF/" + newVal.toString() + ".pdf"
+            }
+            alert(sel);
+        </script>*@
+
+    @*<script>
+        document.ondblclick = function () {
+            var sel = (document.selection && document.selection.createRange().text) ||
+                (window.getSelection && window.getSelection().toString());
+            var text = sel;            
+
+            var query = new RegExp("(\\b" + text + "\\b)", "gim");
+            var e = document.getElementById("searchtext").innerHTML;
+            var enew = e.replace(/(<span>|<\/span>)/igm, "");
+            document.getElementById("searchtext").innerHTML = enew;
+            var newe = enew.replace(query, "<span>$1</span>");
+            document.getElementById("searchtext").innerHTML = newe;
+
+        };
+    </script>*@
+
+    @*<script>
+        document.ondblclick = function () {
+            var sel = (document.selection && document.selection.createRange().text) ||
+                (window.getSelection && window.getSelection().toString());
+            alert(sel);
+            var text = sel;
+            var query = new RegExp("(\\b" + text + "\\b)", "gim");
+            var e = document.getElementById("searchtext").innerHTML;
+            var enew = e.replace(/(<span>|<\/span>)/igm, "");
+            document.getElementById("searchtext").innerHTML = enew;
+            var newe = enew.replace(query, "<span>$1</span>");
+            document.getElementById("searchtext").innerHTML = newe;
     </script>*@
 
 </head>
@@ -43,14 +80,14 @@
             <input type="submit" />
 
         </form>*@
+    <div id="searchtext">
+        <div class="split left">
+            @Html.Partial("_PDF")
+        </div>
 
-    <div class="split left">
-        @Html.Partial("_PDF")
-    </div>
+        <div class="split right">
+            <div id="demo" style="margin-top: 40px;">
 
-    <div class="split right">
-        <div id="demo" style="margin-top: 40px;">
-            
                 <form class="form-inline">
                     <div>
                         <label for="name">MENU ID: </label>
@@ -63,7 +100,7 @@
                         <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
                     </div>
                 </form>
-            
+
                 <br />
                 @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
                 <br />
@@ -113,6 +150,7 @@
                 </table>
             </div>
         </div>
+    </div>
 </body> 
 
 </html>

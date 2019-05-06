@@ -137,6 +137,12 @@ namespace ModelsApp.Controllers
             return View(ivm);
         }
 
-        
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
+
     }
 }

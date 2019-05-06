@@ -1,7 +1,73 @@
-﻿@{
-    ViewData["Title"] = "About";
-}
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/About.css" rel="stylesheet" />
+</head>
+<body>   
+    <h2>User Guide</h2>
+    <div id="contentGuide">
+        <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
+            <div class="panel panel-default">
+                <a title="Tab 1" aria-controls="collapse1" aria-expanded="false" href="#collapse1" data-parent="#accordion" data-toggle="collapse" id="heading1" role="tab" class="panel-heading collapsed"><span class="glyphicon icon-indicator"></span> <span class="panel-title">Overview</span> </a>
+                <div aria-labelledby="heading1" role="tabpanel" class="panel-collapse collapse" id="collapse1" aria-expanded="false">
+                    <div class="panel-body">
+                        <p>This tool was created to visually compare the original PDF file and the recognized text (have to be modified, if necessary) divided into categories:</p>
+                        <ul>
+                            <li>Dish</li>                            
+                            <div class="alert alert-info">                                
+                                Name of a dish. <br>
+                                <strong>Example: </strong> garlic pizza bread, tomato and red onion, etc...
+                            </div>
+                            <li>Description</li>                          
+                           
+                            <div class="alert alert-info">
+                                Relevant comment to the dish above. <br>
+                                <strong>Example: </strong> Burrata servita con pomodorini e basilico, Orecchiette con gamberi e pesto di pistachio, etc...
+                            </div>
+                            <li>
+                                Veg_Comment                                 
+                                <div class="alert alert-info">
+                                    Any commentary showing that the dish is vegan or vegetarian. <br>
+                                    <strong>Example: </strong> V, VG, etc...
+                                </div>
+                            </li>
+                            <li>
+                                Price
+                                <div class="alert alert-info">
+                                    Relevant price to the dish. <br>
+                                    <strong>Example: </strong> 5.45, 5, 5.5/7.5, etc...
+                                </div>
+                            </li>
+                            <li>
+                                Category
+                                <div class="alert alert-info">
+                                    Relevant category to the dish. <br>
+                                    <strong>Example: </strong> side orders, WINE, desserts, etc...
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <a title="Tab 2" aria-controls="collapse2" aria-expanded="false" href="#collapse2" data-parent="#accordion" data-toggle="collapse" id="heading2" role="tab" class="panel-heading collapsed"><span class="glyphicon icon-indicator"></span> <span class="panel-title">How To Edit Rows In The Table</span> </a>
+                <div aria-labelledby="heading2" role="tabpanel" class="panel-collapse collapse" id="collapse2" aria-expanded="false">
+                    <div class="panel-body">
+                        <p>For edit table able following actions:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <a title="Tab 3" aria-controls="collapse3" aria-expanded="false" href="#collapse3" data-parent="#accordion" data-toggle="collapse" id="heading3" role="tab" class="panel-heading collapsed"><span class="glyphicon icon-indicator"></span> <span class="panel-title">Tab 3</span> </a>
+                <div aria-labelledby="heading3" role="tabpanel" class="panel-collapse collapse" id="collapse3" aria-expanded="false">
+                    <div class="panel-body">
+                        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<p>Use this area to provide additional information.</p>
+</body>
+</html>
