@@ -99,28 +99,18 @@ namespace ModelsApp.Controllers
 
         public IActionResult Index(int? fileID = 2)
         {
-            // var menus = sMenuRepository.FindAll();
+           
             var menus = sMenuRepository.FindAll();
 
             var tmp = sfileRepository.FindAll();
             var file_id = sfileRepository.FindMax();
-
-            // fileID = file_id.FirstOrDefault();
+            
            
-            ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
-
-            // формируем список компаний для передачи в представление
-            //List<FileModel> fileModels = files
-            //    .Select(c => new FileModel { Id = c.Id, Name = c.Name })
-            //    .ToList();
+            ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;         
 
             List<FileModel> fileModels = files
                 .Select(c => new FileModel { Id = c.Id })
-                .ToList();
-
-            // добавляем на первое место
-           //fileModels.Insert(0, new FileModel { Id = 0, Name = 0 });
-                     
+                .ToList();                     
 
             IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus};
 
@@ -141,8 +131,6 @@ namespace ModelsApp.Controllers
         {
             return View();
         }
-
-
-
+               
     }
 }
