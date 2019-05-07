@@ -47,16 +47,15 @@
             <div class="form-group">
                 <label asp-for="File_Id" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="File_Id" class="form-control" ReadOnly="true"/>
+                    <input asp-for="File_Id" class="form-control" ReadOnly="true" />
                     <span asp-validation-for="File_Id" class="text-danger" />
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>  <!-- /.modal-footer -->
         </div>
     </form>
 
