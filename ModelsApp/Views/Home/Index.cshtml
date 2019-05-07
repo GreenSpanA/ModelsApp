@@ -25,69 +25,24 @@
             background-color: #FF9;
             color: #555;
         }
+        #controlPanel{
+            margin-top: 40px;
+        }
     </style>
-
     <script src="~/js/incrementing.js"></script>
     <script src="~/js/openPDF.js"></script>
-    @*<script>
-            function DoSubmit() {
-                document.getElementById('pdf_view').data = "PDF/" + newVal.toString() + ".pdf"
-            }
-            alert(sel);
-        </script>*@
 
-    @*<script>
-        document.ondblclick = function () {
-            var sel = (document.selection && document.selection.createRange().text) ||
-                (window.getSelection && window.getSelection().toString());
-            var text = sel;            
-
-            var query = new RegExp("(\\b" + text + "\\b)", "gim");
-            var e = document.getElementById("searchtext").innerHTML;
-            var enew = e.replace(/(<span>|<\/span>)/igm, "");
-            document.getElementById("searchtext").innerHTML = enew;
-            var newe = enew.replace(query, "<span>$1</span>");
-            document.getElementById("searchtext").innerHTML = newe;
-
-        };
-    </script>*@
-
-    @*<script>
-        document.ondblclick = function () {
-            var sel = (document.selection && document.selection.createRange().text) ||
-                (window.getSelection && window.getSelection().toString());
-            alert(sel);
-            var text = sel;
-            var query = new RegExp("(\\b" + text + "\\b)", "gim");
-            var e = document.getElementById("searchtext").innerHTML;
-            var enew = e.replace(/(<span>|<\/span>)/igm, "");
-            document.getElementById("searchtext").innerHTML = enew;
-            var newe = enew.replace(query, "<span>$1</span>");
-            document.getElementById("searchtext").innerHTML = newe;
-    </script>*@
 
 </head>
 
-<body>
-    @*<form class="form-inline">
-            <label>Select restaurant ID:</label>
-            <select name="fileID" class="form-control">
-                @foreach (FileModel file in Model.Files)
-                {
-                    <option value="@file.Id">@file.Name</option>
-                }
-            </select>
-            <input type="submit" />
-
-        </form>*@
+<body>    
     <div id="searchtext">
         <div class="split left">
             @Html.Partial("_PDF")
         </div>
 
         <div class="split right">
-            <div id="demo" style="margin-top: 40px;">
-
+            <div id="controlPanel">
                 <form class="form-inline">
                     <div>
                         <label for="name">MENU ID: </label>
@@ -100,57 +55,13 @@
                         <input type="submit" value="Submit" id="submitButton" style="margin-top: 10px; margin-left: -60px;">
                     </div>
                 </form>
+            </div>
 
-                <br />
-                @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
-                <br />
-                <table class="table">
-                    <tr>
-                        <th>
-                            Dish
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Veg_Comment
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Category
-                        </th>
-                        <th>
-                            File_ID
-                        </th>
-                        <th>
-                            Edition column
-                        </th>
+            <div  id="divPartial">
+                @Html.Partial("_Table")           
 
-                    </tr>
-                    @foreach (Menu p in Model.Menus)
-                    {
-                        <tr>
-                            <td>@p.Dish</td>
-                            <td>@p.Description</td>
-                            <td>@p.Veg_Comment</td>
-                            <td>@p.Price</td>
-                            <td>@p.Category</td>
-                            <td>@p.File_Id</td>
-                            <td>
-                                @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
-                                @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
-                                <div class="btn btn-warning">
-                                    <a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </table>
             </div>
         </div>
-    </div>
 </body> 
 
 </html>

@@ -34,6 +34,11 @@ namespace ModelsApp.Controllers
           
         }
 
+        public IActionResult ViewTable()
+        {
+            return PartialView("_Table");
+        }
+
         public IActionResult ViewCreate()
         {
             return PartialView("_Create");
@@ -44,8 +49,8 @@ namespace ModelsApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                sMenuRepository.Add(cust);                
-                return RedirectToAction("Index", new { fileID = cust.File_Id });
+                sMenuRepository.Add(cust);
+                return RedirectToAction("Index", new { fileID = cust.File_Id });               
             }
             return View(cust);
 
@@ -92,9 +97,7 @@ namespace ModelsApp.Controllers
             }
             curr_file = sMenuRepository.FindCurrentFileByID(id.Value);
             sMenuRepository.Remove(id.Value);
-            return RedirectToAction("Index", new { fileID = curr_file });
-
-            // return RedirectToAction("Index");
+            return RedirectToAction("Index", new { fileID = curr_file });          
         }
 
         public IActionResult Index(int? fileID = 2)

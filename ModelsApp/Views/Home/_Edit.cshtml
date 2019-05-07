@@ -5,7 +5,7 @@
 
     <form asp-action="ViewEdit">
         <div class="form-horizontal">
-            <h4>Customer Information:</h4>
+            <h4>Menu Information:</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -43,13 +43,15 @@
                     <span asp-validation-for="Category" class="text-danger" />
                 </div>
             </div>
+
             <div class="form-group">
                 <label asp-for="File_Id" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="File_Id" class="form-control" />
+                    <input asp-for="File_Id" class="form-control" ReadOnly="true"/>
                     <span asp-validation-for="File_Id" class="text-danger" />
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
@@ -58,9 +60,9 @@
         </div>
     </form>
 
-    <div>
+    @*<div>
         <a asp-action="Index">Back to List</a>
-    </div>
+    </div>*@
 </div>
 
 @section Scripts {
