@@ -56,6 +56,27 @@ object {
 .submitButton{
    margin-top:10px;
 }
+
+#searchtext span {
+    background-color: #FF9;
+    color: #555;
+}
+
+#controlPanel {
+    margin-top: 40px;
+    color: black;
+}
+
+.modal-body {
+    color: green;
+}
+
+.modal-content {
+    right: -30vh;
+    top: 30vh;
+}
+
+
 /*a {
     text-decoration: none;
     display: inline-block;
