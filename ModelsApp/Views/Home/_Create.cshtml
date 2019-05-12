@@ -1,10 +1,5 @@
 ﻿@model ModelsApp.Models.Menu
-@*<html>
-    <head>
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    </head>
-    <body>*@
+
 <div class="modal-body">
     <h2>Create</h2>
     <form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-update="#divPartial">
@@ -57,8 +52,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <input type="submit" value="Create" class="btn btn-success" />
+                <button type="button" class="btn btn-default" onclick="$('#modal-container').modal('hide')"  data-dismiss="modal">Cancel</button>
+                <input type="submit" value="submit" class="btn btn-success"/>
             </div>
         </div>
     </form>
@@ -67,12 +62,10 @@
 <script type="text/javascript">
     $(function () {
         $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');
+            $('#modal-container').modal('hide');            
         });
     });
 </script>
-
-
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -80,5 +73,3 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
-@*</body>
-    </html>*@

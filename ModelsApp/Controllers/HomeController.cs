@@ -61,7 +61,9 @@ namespace ModelsApp.Controllers
 
         IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
         ivm.Menus = menus.Where(p => p.File_Id == create_file_id);
-        return PartialView("_Table", ivm);          
+       // return PartialView("_Table", ivm);
+       return RedirectToAction("ViewTable", create_file_id);
+
         }
 
      
