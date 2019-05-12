@@ -19,14 +19,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link href="~/css/pdfView.css" rel="stylesheet" />    
+
+    @*New Start*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @*New End*@
+    <link href="~/css/pdfView.css" rel="stylesheet" />
     <script src="~/js/incrementing.js"></script>
     <script src="~/js/openPDF.js"></script>
 
 
 </head>
 
-<body>    
+<body>
+
     <div id="searchtext">
         <div class="split left">
             @Html.Partial("_PDF")
@@ -48,12 +54,22 @@
                 </form>
             </div>
 
-            <div  id="divPartial">
-                @Html.Partial("_Table")           
 
+
+            <div id="divPartial">
+                @*@Html.Partial("_Table")*@
+                @{Html.RenderPartialAsync("_Table");}
             </div>
+
+
         </div>
     </div>
-</body> 
+</body>
 
+
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>  
+}
 </html>

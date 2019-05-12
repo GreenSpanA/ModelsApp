@@ -32,12 +32,8 @@ namespace ModelsApp.Controllers
 
             var menus = sMenuRepository.FindAll();            
           
-        }
+        }   
 
-        public IActionResult ViewTable()
-        {
-            return PartialView("_Table");
-        }
 
         public IActionResult ViewCreate()
         {
@@ -50,7 +46,10 @@ namespace ModelsApp.Controllers
             if (ModelState.IsValid)
             {
                 sMenuRepository.Add(cust);
-                return RedirectToAction("Index", new { fileID = cust.File_Id });               
+                // return RedirectToAction("Index", new { fileID = cust.File_Id });
+                // return RedirectToAction("ViewTable", new { fileID = cust.File_Id });
+                return PartialView("_Create");
+
             }
             return View(cust);
 
@@ -97,6 +96,7 @@ namespace ModelsApp.Controllers
             }
             curr_file = sMenuRepository.FindCurrentFileByID(id.Value);
             sMenuRepository.Remove(id.Value);
+           
             return RedirectToAction("Index", new { fileID = curr_file });          
         }
 
@@ -128,6 +128,35 @@ namespace ModelsApp.Controllers
                 ivm.Menus = menus.Where(p => p.File_Id == fileID);
             }
             return View(ivm);
+        }
+
+        public IActionResult ViewTable(int? fileID = 2)
+        {
+            var menus = sMenuRepository.FindAll();
+
+            //var tmp = sfileRepository.FindAll();
+            var file_id = sfileRepository.FindMax();
+
+
+            ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
+
+            List<FileModel> fileModels = files
+                .Select(c => new FileModel { Id = c.Id })
+                .ToList();
+
+            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+
+            // если передан id компании, фильтруем список
+            ViewData["file_id1"] = 1;
+            ViewData["file_name1"] = "PDF/2.pdf";
+            if (fileID != null && fileID > 0)
+            {
+                curr_file = fileID.Value;
+                ViewData["file_id1"] = fileID.Value;
+                ViewData["file_name1"] = "PDF/" + fileID.Value.ToString() + ".pdf";
+                ivm.Menus = menus.Where(p => p.File_Id == fileID);
+            }           
+            return PartialView("_Table", ivm);
         }
 
         public IActionResult About()

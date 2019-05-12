@@ -53,8 +53,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>               
-                 <input type="submit" value="Create" class="btn btn-success" />                  
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Create" class="btn btn-success" />
+
+                <button type="button" id ="test" class="btn btn-default" data-dismiss="modal" onlick="Test">Create 2</button>
             </div>  <!-- /.modal-footer -->
         </div>
 </form>
@@ -64,10 +66,14 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');           
+        $('#approve-btn').click(function () {           
+            $('#modal-container').modal('hide');              
         });
-    });
+    });   
+
+    $("#test").click(function () {
+        alert("button");
+    }); 
 </script>
 
 
