@@ -8,7 +8,7 @@
 <body>
     <div class="modal-body">
         <h2>Create</h2>
-        <form asp-controller="Home" asp-action="Create"  data-ajax-method="POST" data-ajax-update="#divPartial">
+        <form asp-controller="Home" asp-action="Create"  data-ajax="true" data-ajax-update="#divPartial">
         @*<form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-method="POST" data-ajax-update="#divParticial">*@       
             <div class="form-horizontal">
                 <h4>Menu Information:</h4>
@@ -59,16 +59,11 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <input type="submit" value="Create" class="btn btn-success" />
-
-                    <button type="button" id="test" class="btn btn-default" data-dismiss="modal" onlick="Test">Create 2</button>
+                    <input type="submit" value="Create" class="btn btn-success"/>                    
                 </div>
             </div>
-            </form>       
-
-    </div>
-
-
+            </form>     
+     </div>
 
     <script type="text/javascript">
         $(function () {

@@ -57,6 +57,8 @@
                         <td>
                             @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
                             @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
+
+
                             <div class="btn btn-warning">
                                 @*<a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?'); data-ajax="true" data-ajax-update="#divPartial">Delete</a>*@
                                 <form asp-action="Delete" asp-route-id="@p.Id" data-ajax="true" data-ajax-update="#divPartial">

@@ -41,28 +41,29 @@ namespace ModelsApp.Controllers
             return PartialView("_Create");
         }
 
-        //[HttpPost]
-        //public IActionResult Create(Menu cust)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        sMenuRepository.Add(cust);
-        //       return RedirectToAction("Index", new { fileID = cust.File_Id });                 
-        //       // return RedirectToAction("ViewTable", new { fileID = cust.File_Id });
-
-        //    }
-        //    return View(cust);
-
-        //}       
-
         [HttpPost]
         public IActionResult Create(Menu cust)
-        {           
-        sMenuRepository.Add(cust);
-            //  return RedirectToAction("ViewTable", new { fileID = cust.File_Id });
-            return RedirectToAction("Index", new { fileID = cust.File_Id });
+        {
+            if (ModelState.IsValid)
+            {                
+                sMenuRepository.Add(cust);
+                int create_file_id = cust.File_Id;
+
+                //Create new query for table
+                var menus = sMenuRepository.FindAll();                
+
+                List<FileModel> fileModels = files
+                    .Select(c => new FileModel { Id = c.Id })
+                    .ToList();
+
+                IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+                ivm.Menus = menus.Where(p => p.File_Id == create_file_id);
+                return PartialView("_Table", ivm);
+            }
+            return View(cust);
         }
 
+     
         public IActionResult ViewEdit(int? id)
         {
             if (id == null)
@@ -81,49 +82,30 @@ namespace ModelsApp.Controllers
         [HttpPost]
         public IActionResult ViewEdit(Menu obj)
         {
-            if (ModelState.IsValid)
-            {
-                sMenuRepository.Update(obj);
-                var file_id = sfileRepository.FindMax();
+            //if (ModelState.IsValid)
+            //{
+            sMenuRepository.Update(obj);
+            //var file_id = sfileRepository.FindMax();
+            curr_file = obj.File_Id;
 
-                curr_file = sMenuRepository.FindCurrentFile(obj);
-                return RedirectToAction("Index", new { fileID = curr_file });             
-            }
+            var menus = sMenuRepository.FindAll();
 
-            return View(obj);
+            List<FileModel> fileModels = files
+            .Select(c => new FileModel { Id = c.Id })
+            .ToList();
+
+            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+
+            ivm.Menus = menus.Where(p => p.File_Id == curr_file);
+              
+            return PartialView("_Table", ivm);
+                //return RedirectToAction("Index", new { fileID = curr_file });             
+            //}
+
+            //return View(obj);
         }
 
-
-        // GET:/Menu Row/Delete/1
-        //public IActionResult Delete(int? id)
-        //{
-
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    curr_file = sMenuRepository.FindCurrentFileByID(id.Value);
-        //    sMenuRepository.Remove(id.Value);
-
-        //    var menus = sMenuRepository.FindAll();
-
-        //    //var tmp = sfileRepository.FindAll();
-        //    var file_id = sfileRepository.FindMax();
-
-
-        //    ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
-
-        //    List<FileModel> fileModels = files
-        //        .Select(c => new FileModel { Id = c.Id })
-        //        .ToList();
-
-        //    IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
-
-        //    //  return RedirectToAction("Index", new { fileID = curr_file });
-        //    // return PartialView("_Table", ivm);
-        //    return NoContent();
-        //}
-
+  
         [HttpPost]
         public IActionResult Delete(int? id)
         {
@@ -131,13 +113,8 @@ namespace ModelsApp.Controllers
             int tmp_id = file_id.File_Id;
 
             sMenuRepository.Remove(id.Value);
-
-            var menus = sMenuRepository.FindAll();
-
-            //var tmp = sfileRepository.FindAll();
+            var menus = sMenuRepository.FindAll();          
             
-
-
             List<FileModel> fileModels = files
                 .Select(c => new FileModel { Id = c.Id })
                 .ToList();
