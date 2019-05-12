@@ -35,7 +35,7 @@ namespace ModelsApp.Controllers
           
         }
 
-
+        [HttpGet]
         public IActionResult ViewCreate()
         {
             return PartialView("_Create");
@@ -44,23 +44,24 @@ namespace ModelsApp.Controllers
         [HttpPost]
         public IActionResult Create(Menu cust)
         {
-            if (ModelState.IsValid)
-            {                
-                sMenuRepository.Add(cust);
-                int create_file_id = cust.File_Id;
+            //if (ModelState.IsValid)
+            //{         
+        int create_file_id = cust.File_Id;
+        sMenuRepository.Add(cust);
+       
 
-                //Create new query for table
-                var menus = sMenuRepository.FindAll();                
+        //Create new query for table
+        var menus = sMenuRepository.FindAll();
 
-                List<FileModel> fileModels = files
-                    .Select(c => new FileModel { Id = c.Id })
-                    .ToList();
+       
 
-                IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
-                ivm.Menus = menus.Where(p => p.File_Id == create_file_id);
-                return PartialView("_Table", ivm);
-            }
-            return View(cust);
+        List<FileModel> fileModels = files
+        .Select(c => new FileModel { Id = c.Id })
+        .ToList();
+
+        IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+        ivm.Menus = menus.Where(p => p.File_Id == create_file_id);
+        return PartialView("_Table", ivm);          
         }
 
      
