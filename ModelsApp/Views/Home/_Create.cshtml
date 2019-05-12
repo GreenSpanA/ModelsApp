@@ -1,85 +1,90 @@
 ﻿@model ModelsApp.Models.Menu
 
+<html>
+<head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</head>
+<body>
+    <div class="modal-body">
+        <h2>Create</h2>
+        <form asp-controller="Home" asp-action="Create"  data-ajax-method="POST" data-ajax-update="#divPartial">
+        @*<form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-method="POST" data-ajax-update="#divParticial">*@       
+            <div class="form-horizontal">
+                <h4>Menu Information:</h4>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Dish" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Dish" class="form-control" />
+                        <span asp-validation-for="Dish" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Veg_Comment" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Veg_Comment" class="form-control" />
+                        <span asp-validation-for="Veg_Comment" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Category" class="form-control" />
+                        <span asp-validation-for="Category" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="File_Id" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="File_Id" class="form-control" />
+                        <span asp-validation-for="File_Id" class="text-danger" />
+                    </div>
+                </div>
 
-<div class="modal-body">
-    <h2>Create</h2>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="submit" value="Create" class="btn btn-success" />
 
-    <form asp-action="Create">
-        <div class="form-horizontal">
-            <h4>Menu Information:</h4>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Dish" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Dish" class="form-control" />
-                    <span asp-validation-for="Dish" class="text-danger" />
+                    <button type="button" id="test" class="btn btn-default" data-dismiss="modal" onlick="Test">Create 2</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Veg_Comment" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Veg_Comment" class="form-control" />
-                    <span asp-validation-for="Veg_Comment" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Category" class="form-control" />
-                    <span asp-validation-for="Category" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="File_Id" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="File_Id" class="form-control" />
-                    <span asp-validation-for="File_Id" class="text-danger" />
-                </div>
-            </div>
+            </form>       
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <input type="submit" value="Create" class="btn btn-success" />
-
-                <button type="button" id ="test" class="btn btn-default" data-dismiss="modal" onlick="Test">Create 2</button>
-            </div>  <!-- /.modal-footer -->
-        </div>
-</form>
-   
-</div>
+    </div>
 
 
-<script type="text/javascript">
-    $(function () {
-        $('#approve-btn').click(function () {           
-            $('#modal-container').modal('hide');              
+
+    <script type="text/javascript">
+        $(function () {
+            $('#approve-btn').click(function () {
+                $('#modal-container').modal('hide');
+            });
         });
-    });   
-
-    $("#test").click(function () {
-        alert("button");
-    }); 
-</script>
+    </script>
 
 
 
-@section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}
+    @section Scripts {
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+</body>
+</html>

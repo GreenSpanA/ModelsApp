@@ -81,7 +81,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<int>("SELECT file_id FROM menu_09052019 WHERE id = @Id", new { Id = item.Id }).FirstOrDefault();
+                return dbConnection.Query<int>("SELECT file_id FROM menu_09052019 WHERE id = @Id", new { id = item.Id }).FirstOrDefault();
             }
         }
 
@@ -90,7 +90,8 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<int>("SELECT file_id FROM menu_09052019 WHERE id = @Id", new { Id = id }).FirstOrDefault();
+                var tmp_row = dbConnection.Query<Menu>("SELECT * FROM menu_09052019 WHERE id = @Id", new { Id = id }).FirstOrDefault();
+                return tmp_row.File_Id;
             }
         }
 

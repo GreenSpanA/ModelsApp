@@ -6,7 +6,6 @@
 }
 
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
@@ -15,7 +14,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 
-@*<div class="modal-content" style="width:800px;">*@
     <div class="modal-body">
         <div id="demo" style="margin-top: 40px;">
 
@@ -60,7 +58,12 @@
                             @*<a asp-action="ViewEdit" asp-route-id="@item.Id">Edit</a>*@
                             @Html.ActionLink("Edit", "ViewEdit/" + @p.Id, "Home", null, new { @class = "modal-link btn btn-success" })
                             <div class="btn btn-warning">
-                                <a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
+                                @*<a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?'); data-ajax="true" data-ajax-update="#divPartial">Delete</a>*@
+                                <form asp-action="Delete" asp-route-id="@p.Id" data-ajax="true" data-ajax-update="#divPartial">
+                                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
+                                        Delete
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -68,7 +71,6 @@
             </table>
         </div>
     </div>
-@*</div>*@
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

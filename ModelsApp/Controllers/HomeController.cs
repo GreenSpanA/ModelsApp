@@ -6,6 +6,7 @@ using ModelsApp.ViewModels;
 using ModelsApp.Repository;
 using Microsoft.Extensions.Configuration;
 
+
 namespace ModelsApp.Controllers
 {
     public class HomeController : Controller
@@ -32,7 +33,7 @@ namespace ModelsApp.Controllers
 
             var menus = sMenuRepository.FindAll();            
           
-        }   
+        }
 
 
         public IActionResult ViewCreate()
@@ -40,19 +41,26 @@ namespace ModelsApp.Controllers
             return PartialView("_Create");
         }
 
+        //[HttpPost]
+        //public IActionResult Create(Menu cust)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        sMenuRepository.Add(cust);
+        //       return RedirectToAction("Index", new { fileID = cust.File_Id });                 
+        //       // return RedirectToAction("ViewTable", new { fileID = cust.File_Id });
+
+        //    }
+        //    return View(cust);
+
+        //}       
+
         [HttpPost]
         public IActionResult Create(Menu cust)
-        {
-            if (ModelState.IsValid)
-            {
-                sMenuRepository.Add(cust);
-                // return RedirectToAction("Index", new { fileID = cust.File_Id });
-                // return RedirectToAction("ViewTable", new { fileID = cust.File_Id });
-                return PartialView("_Create");
-
-            }
-            return View(cust);
-
+        {           
+        sMenuRepository.Add(cust);
+            //  return RedirectToAction("ViewTable", new { fileID = cust.File_Id });
+            return RedirectToAction("Index", new { fileID = cust.File_Id });
         }
 
         public IActionResult ViewEdit(int? id)
@@ -83,21 +91,62 @@ namespace ModelsApp.Controllers
             }
 
             return View(obj);
-        }       
+        }
 
 
         // GET:/Menu Row/Delete/1
+        //public IActionResult Delete(int? id)
+        //{
+
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    curr_file = sMenuRepository.FindCurrentFileByID(id.Value);
+        //    sMenuRepository.Remove(id.Value);
+
+        //    var menus = sMenuRepository.FindAll();
+
+        //    //var tmp = sfileRepository.FindAll();
+        //    var file_id = sfileRepository.FindMax();
+
+
+        //    ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
+
+        //    List<FileModel> fileModels = files
+        //        .Select(c => new FileModel { Id = c.Id })
+        //        .ToList();
+
+        //    IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+
+        //    //  return RedirectToAction("Index", new { fileID = curr_file });
+        //    // return PartialView("_Table", ivm);
+        //    return NoContent();
+        //}
+
+        [HttpPost]
         public IActionResult Delete(int? id)
         {
+            var file_id = sMenuRepository.FindByID(id.Value);
+            int tmp_id = file_id.File_Id;
 
-            if (id == null)
-            {
-                return NotFound();
-            }
-            curr_file = sMenuRepository.FindCurrentFileByID(id.Value);
             sMenuRepository.Remove(id.Value);
-           
-            return RedirectToAction("Index", new { fileID = curr_file });          
+
+            var menus = sMenuRepository.FindAll();
+
+            //var tmp = sfileRepository.FindAll();
+            
+
+
+            List<FileModel> fileModels = files
+                .Select(c => new FileModel { Id = c.Id })
+                .ToList();
+
+            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };           
+            
+            ivm.Menus = menus.Where(p => p.File_Id == tmp_id);            
+
+            return PartialView("_Table", ivm);
         }
 
         public IActionResult Index(int? fileID = 2)
