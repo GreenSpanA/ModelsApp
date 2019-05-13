@@ -54,8 +54,15 @@
                 </form>
             </div>
 
-            <div id="divPartial">             
+            <div id="divPartial">
                 <partial name="_Table" model="Model" />
+                <script type="text/javascript">
+                    $(function () {
+                        $('#approve-btn').click(function () {
+                            $('#modal-container').modal('hide');
+                        });
+                    });
+                </script>
             </div>
 
 

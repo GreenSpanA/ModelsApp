@@ -1,8 +1,18 @@
 ﻿@model ModelsApp.Models.Menu
 
+
+<script type="text/javascript">
+    $(function () {
+        $('#approve-btn').click(function () {
+            $('#modal-container').modal('hide');
+        });
+    });
+</script>
+
+
 <div class="modal-body">
     <h2>Create</h2>
-    <form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-update="#divPartial" id="#order-form">       
+    <form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-update="#divPartial" id="#order-form">
         <div class="form-horizontal">
             <h4>Menu Information:</h4>
             <hr />
@@ -50,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="modal-footer">         
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default"
                         data-dismiss="modal">
                     Cancel
@@ -63,16 +73,14 @@
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    $(function () {
-        $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');
-        });
-    });
-</script>
+
+
+
+
 
 @section Scripts {
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+    @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>*@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
