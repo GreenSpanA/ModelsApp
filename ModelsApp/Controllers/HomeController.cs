@@ -43,27 +43,10 @@ namespace ModelsApp.Controllers
 
         [HttpPost]
         public IActionResult Create(Menu cust)
-        {
-            //if (ModelState.IsValid)
-            //{         
-        int create_file_id = cust.File_Id;
-        sMenuRepository.Add(cust);
-       
-
-        //Create new query for table
-        var menus = sMenuRepository.FindAll();
-
-       
-
-        List<FileModel> fileModels = files
-        .Select(c => new FileModel { Id = c.Id })
-        .ToList();
-
-        IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
-        ivm.Menus = menus.Where(p => p.File_Id == create_file_id);
-       // return PartialView("_Table", ivm);
-       return RedirectToAction("ViewTable", create_file_id);
-
+        {                   
+            int create_file_id = cust.File_Id;
+            sMenuRepository.Add(cust);           
+            return RedirectToAction("ViewTable", create_file_id);
         }
 
      
@@ -85,27 +68,13 @@ namespace ModelsApp.Controllers
         [HttpPost]
         public IActionResult ViewEdit(Menu obj)
         {
-            //if (ModelState.IsValid)
-            //{
-            sMenuRepository.Update(obj);
-            //var file_id = sfileRepository.FindMax();
-            curr_file = obj.File_Id;
+            if (ModelState.IsValid)
+            {
+                sMenuRepository.Update(obj);
+                return RedirectToAction("ViewTable", curr_file);
+            }           
 
-            var menus = sMenuRepository.FindAll();
-
-            List<FileModel> fileModels = files
-            .Select(c => new FileModel { Id = c.Id })
-            .ToList();
-
-            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
-
-            ivm.Menus = menus.Where(p => p.File_Id == curr_file);
-              
-            return PartialView("_Table", ivm);
-                //return RedirectToAction("Index", new { fileID = curr_file });             
-            //}
-
-            //return View(obj);
+            return View(obj);
         }
 
   

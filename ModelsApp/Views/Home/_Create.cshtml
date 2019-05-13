@@ -2,8 +2,7 @@
 
 <div class="modal-body">
     <h2>Create</h2>
-    <form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-update="#divPartial">
-        @*<form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-method="POST" data-ajax-update="#divParticial">*@
+    <form asp-controller="Home" asp-action="Create" data-ajax="true" data-ajax-update="#divPartial" id="#order-form">       
         <div class="form-horizontal">
             <h4>Menu Information:</h4>
             <hr />
@@ -51,24 +50,29 @@
                 </div>
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="$('#modal-container').modal('hide')"  data-dismiss="modal">Cancel</button>
-                <input type="submit" value="submit" class="btn btn-success"/>
+            <div class="modal-footer">         
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" id="approve-btn"
+                        class="btn btn-success">
+                    Save
+                </button>
             </div>
         </div>
     </form>
 </div>
-
 <script type="text/javascript">
     $(function () {
         $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');            
+            $('#modal-container').modal('hide');
         });
     });
 </script>
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

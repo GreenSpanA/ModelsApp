@@ -19,6 +19,7 @@
 
             <br />
             @Html.ActionLink("Create", "ViewCreate", "Home", null, new { @class = "modal-link btn btn-success" })
+            
             <br />
             <table class="table">
                 <tr>
@@ -61,7 +62,7 @@
                             <div class="btn btn-warning">
                                 @*<a asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?'); data-ajax="true" data-ajax-update="#divPartial">Delete</a>*@
                                 <form asp-action="Delete" asp-route-id="@p.Id" onclick="return confirm('Are sure wants to delete?')" data-ajax="true" data-ajax-update="#divPartial">
-                                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block" onlick ="return confirm('Are you sure want to delete')">
+                                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block" onlick="return confirm('Are you sure want to delete')">
                                         Delete
                                     </button>
                                 </form>
