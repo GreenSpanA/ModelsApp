@@ -31,7 +31,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                dbConnection.Execute("INSERT INTO menu_09052019 (category, dish, description," +
+                dbConnection.Execute("INSERT INTO menu_13052019 (category, dish, description," +
                     "veg_comment, price, file_id) VALUES(@Category, @Dish, @Description, " +
                     "@Veg_Comment, @Price, @File_Id)", item);
             }
@@ -42,7 +42,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Menu>("SELECT * FROM menu_09052019 WHERE id > 0");
+                return dbConnection.Query<Menu>("SELECT * FROM menu_13052019 WHERE id > 0");
             }
         }   
 
@@ -52,7 +52,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Menu>("SELECT * FROM menu_09052019 WHERE id = @Id", new { Id = id }).FirstOrDefault();
+                return dbConnection.Query<Menu>("SELECT * FROM menu_13052019 WHERE id = @Id", new { Id = id }).FirstOrDefault();
             }
         }      
 
@@ -62,7 +62,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                dbConnection.Execute("DELETE FROM menu_09052019 WHERE Id=@Id", new { Id = id });
+                dbConnection.Execute("DELETE FROM menu_13052019 WHERE Id=@Id", new { Id = id });
             }
         }
 
@@ -71,7 +71,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                dbConnection.Query("UPDATE menu_09052019 SET category = @Category,  dish  = @Dish, description = @Description, " +
+                dbConnection.Query("UPDATE menu_13052019 SET category = @Category,  dish  = @Dish, description = @Description, " +
                     "veg_comment = @Veg_Comment, price = @Price, file_id = @File_Id WHERE id = @Id", item);
             }
         }  
@@ -81,7 +81,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<int>("SELECT file_id FROM menu_09052019 WHERE id = @Id", new { id = item.Id }).FirstOrDefault();
+                return dbConnection.Query<int>("SELECT file_id FROM menu_13052019 WHERE id = @Id", new { id = item.Id }).FirstOrDefault();
             }
         }
 
@@ -90,7 +90,7 @@ namespace ModelsApp.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var tmp_row = dbConnection.Query<Menu>("SELECT * FROM menu_09052019 WHERE id = @Id", new { Id = id }).FirstOrDefault();
+                var tmp_row = dbConnection.Query<Menu>("SELECT * FROM menu_13052019 WHERE id = @Id", new { Id = id }).FirstOrDefault();
                 return tmp_row.File_Id;
             }
         }
