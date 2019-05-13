@@ -45,8 +45,19 @@ namespace ModelsApp.Controllers
         public IActionResult Create(Menu cust)
         {                   
             int create_file_id = cust.File_Id;
-            sMenuRepository.Add(cust);           
-            return RedirectToAction("ViewTable", create_file_id);
+            sMenuRepository.Add(cust);
+
+            var menus = sMenuRepository.FindAll();
+
+            List<FileModel> fileModels = files
+                .Select(c => new FileModel { Id = c.Id })
+                .ToList();
+
+            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+
+            ivm.Menus = menus.Where(p => p.File_Id == create_file_id);
+
+            return PartialView("_Table", ivm);
         }
 
      
@@ -70,8 +81,20 @@ namespace ModelsApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                int cur_file_update = obj.File_Id;
                 sMenuRepository.Update(obj);
-                return RedirectToAction("ViewTable", curr_file);
+                var menus = sMenuRepository.FindAll();
+
+                List<FileModel> fileModels = files
+                    .Select(c => new FileModel { Id = c.Id })
+                    .ToList();
+
+                IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
+
+                ivm.Menus = menus.Where(p => p.File_Id == cur_file_update);
+
+                return PartialView("_Table", ivm);
+
             }           
 
             return View(obj);
@@ -100,20 +123,20 @@ namespace ModelsApp.Controllers
 
         public IActionResult Index(int? fileID = 2)
         {
-           
+
             var menus = sMenuRepository.FindAll();
 
             var tmp = sfileRepository.FindAll();
             var file_id = sfileRepository.FindMax();
-            
-           
-            ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;         
+
+
+            ViewData["file_id_next"] = file_id.FirstOrDefault() + 1;
 
             List<FileModel> fileModels = files
                 .Select(c => new FileModel { Id = c.Id })
-                .ToList();                     
+                .ToList();
 
-            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus};
+            IndexViewModel ivm = new IndexViewModel { Files = fileModels, Menus = menus };
 
             // если передан id компании, фильтруем список
             ViewData["file_id"] = 1;
@@ -153,7 +176,7 @@ namespace ModelsApp.Controllers
                 ViewData["file_id1"] = fileID.Value;
                 ViewData["file_name1"] = "PDF/" + fileID.Value.ToString() + ".pdf";
                 ivm.Menus = menus.Where(p => p.File_Id == fileID);
-            }           
+            }
             return PartialView("_Table", ivm);
         }
 
