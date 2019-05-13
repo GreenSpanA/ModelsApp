@@ -1,5 +1,13 @@
 ﻿@model ModelsApp.Models.Menu
 
+<script type="text/javascript">
+    $(function () {
+        $('#approve-btn').click(function () {
+            $('#modal-container').modal('hide');
+        });
+    });
+</script>
+
 <div class="modal-body">
     <h2>Edit</h2>
 
@@ -66,18 +74,9 @@
     </form>
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        $('#approve-btn').click(function () {
-            $('#modal-container').modal('hide');
-            $('#modal-container').modal('show');
-        });
-    });
-</script>
 
 
-@section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+@section Scripts {   
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
